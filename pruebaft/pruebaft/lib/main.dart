@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pruebaft/screens/Mapscreen.dart';
+import 'screens/login.dart';
 import 'models/task_model.dart';
-import 'package:pruebaft/screens/AddLocation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: AddLocationScreen(), // Cambiado para iniciar en MapScreen
+      home: LoginScreen(), // Cambiado para iniciar en LoginScreen
     );
   }
 }
