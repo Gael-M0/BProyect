@@ -12,6 +12,7 @@ class AddLocationScreen extends StatefulWidget {
 class _AddLocationScreenState extends State<AddLocationScreen> {
   LatLng? _currentLocation;
   String? _address;
+  String? _currentDate; // Variable para almacenar la fecha actual
 
   Future<void> _getLocation() async {
     try {
@@ -26,11 +27,15 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
         position.longitude,
       );
 
+      // Obtener la fecha actual
+      String currentDate = DateTime.now().toLocal().toString().split(' ')[0];
+
       setState(() {
         _currentLocation = LatLng(position.latitude, position.longitude);
         _address = placemarks.isNotEmpty
             ? "${placemarks.first.street}, ${placemarks.first.locality}, ${placemarks.first.country}"
             : "Dirección no encontrada";
+        _currentDate = currentDate; // Guardar la fecha actual
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -59,13 +64,20 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
+            const SizedBox(height: 10),
+            if (_currentDate != null)
+              Text(
+                "Fecha: $_currentDate",
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
             const SizedBox(height: 20),
             if (_currentLocation != null)
               Expanded(
                 child: FlutterMap(
                   options: MapOptions(
                     center: _currentLocation,
-                    zoom: 15.0,
+                    zoom: 18.0, // Cambiar el nivel de zoom a un valor más alto
                   ),
                   children: [
                     TileLayer(
